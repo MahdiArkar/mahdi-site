@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>آموزش ساخت ماشین حساب پیشرفته با جاوااسکریپت</title><meta name="description" content="ساخت ماشین حساب علمی با تاریخچه محاسبات با JavaScript و Math.js">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blog.css"></head>
+<body data-title-fa="آموزش ساخت ماشین حساب پیشرفته با جاوااسکریپت | Mahdi.dev" data-title-en="Building an advanced calculator with JavaScript | Mahdi.dev"><div id="bar"></div>
+<header><a href="../index_3d.html#blog">&larr; <span class="fa">وبلاگ</span><span class="en">Blog</span></a>
+<div><button id="themeBtn" type="button">☀️</button><button id="langBtn" type="button">EN</button></div></header>
+<main><article>
+<h1 class="fa">آموزش ساخت ماشین حساب پیشرفته با جاوااسکریپت</h1><h1 class="en">Building an advanced calculator with JavaScript</h1>
+<div class="meta">1404/11/20 · <span class="fa">8 دقیقه مطالعه</span><span class="en">8 min read</span></div>
+<div class="tags"><span>JavaScript</span><span>Math.js</span><span>HTML</span></div>
+<h2 class="fa">طرح کلی</h2><h2 class="en">Overview</h2><p class="fa">ماشین حساب ما سه بخش دارد: یک نمایشگر، دکمه‌ها و تاریخچه. محاسبه را کتابخانهٔ Math.js انجام می‌دهد که توابع علمی مثل <code>sin</code> و <code>sqrt</code> را هم می‌شناسد؛ این‌طور لازم نیست خودمان تحلیلگر عبارت بنویسیم.</p><p class="en">Our calculator has three parts: a display, buttons and a history. The Math.js library does the evaluation and already knows scientific functions like <code>sin</code> and <code>sqrt</code>, so we do not need to write our own expression parser.</p>
+<h2 class="fa">آماده‌سازی</h2><h2 class="en">Setup</h2><p class="fa">Math.js را از CDN اضافه کنید و یک نمایشگر و ظرف تاریخچه بگذارید.</p><p class="en">Add Math.js from a CDN and create a display and a history container.</p><pre><code class="language-html" data-file="index.html">&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.0/math.min.js">&lt;/script>
+&lt;input id="display" readonly value="0">
+&lt;div id="keys">&lt;/div>
+&lt;ul id="history">&lt;/ul></code></pre>
+<h2 class="fa">منطق ماشین حساب</h2><h2 class="en">The logic</h2><p class="fa">تابع <code>press</code> هر دکمه را مدیریت می‌کند. عبارت داخل <code>try/catch</code> محاسبه می‌شود تا ورودی نامعتبر برنامه را خراب نکند، و هر نتیجه به تاریخچه می‌رود.</p><p class="en">The <code>press</code> function handles every key. The expression is evaluated inside <code>try/catch</code> so invalid input never breaks the app, and each result goes into the history.</p><pre><code class="language-javascript" data-file="calculator.js">const display = document.getElementById('display');
+const historyEl = document.getElementById('history');
+const history = [];
+let expr = '';
+
+function render() {
+  display.value = expr || '0';
+}
+
+function calculate() {
+  try {
+    const result = math.evaluate(expr);
+    const line = `${expr} = ${math.format(result, { precision: 10 })}`;
+    history.unshift(line);
+    historyEl.innerHTML = history.slice(0, 10).map(h => `&lt;li>${h}&lt;/li>`).join('');
+    expr = String(math.round(result, 10));
+  } catch {
+    expr = '';
+    display.value = 'Error';
+    return;
+  }
+  render();
+}
+
+function press(key) {
+  if (key === 'C') expr = '';
+  else if (key === '⌫') expr = expr.slice(0, -1);
+  else if (key === '=') return calculate();
+  else expr += key;
+  render();
+}
+
+'7 8 9 / 4 5 6 * 1 2 3 - 0 . ( + sin( sqrt( ^ ) ⌫ C ='.split(' ').forEach(k => {
+  const b = document.createElement('button');
+  b.textContent = k;
+  b.onclick = () => press(k);
+  document.getElementById('keys').append(b);
+});</code></pre>
+<h2 class="fa">ایده‌های بعدی</h2><h2 class="en">Next ideas</h2><p class="fa">پشتیبانی از صفحه‌کلید، ذخیرهٔ تاریخچه در <code>localStorage</code> و حالت تاریک/روشن.</p><p class="en">Keyboard support, saving history in <code>localStorage</code> and a dark/light mode.</p>
+
+</article>
+<div class="nav"><a href="login-bmw.html">&larr; <span class="fa">قبلی</span><span class="en">Prev</span></a><a href="python-ai.html"><span class="fa">بعدی</span><span class="en">Next</span> &rarr;</a></div>
+<section id="comments"><h2><span class="fa">نظرات</span><span class="en">Comments</span></h2><div id="giscus"></div></section>
+</main><script src="blog.js"></script></body></html>

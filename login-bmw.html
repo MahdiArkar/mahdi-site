@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>چطور فرم لاگین با طراحی BMW ساختم؟</title><meta name="description" content="ساخت فرم ورود با HTML و CSS با الهام از هویت بصری BMW">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blog.css"></head>
+<body data-title-fa="چطور فرم لاگین با طراحی BMW ساختم؟ | Mahdi.dev" data-title-en="How I built the BMW-style login form | Mahdi.dev"><div id="bar"></div>
+<header><a href="../index_3d.html#blog">&larr; <span class="fa">وبلاگ</span><span class="en">Blog</span></a>
+<div><button id="themeBtn" type="button">☀️</button><button id="langBtn" type="button">EN</button></div></header>
+<main><article>
+<h1 class="fa">چطور فرم لاگین با طراحی BMW ساختم؟</h1><h1 class="en">How I built the BMW-style login form</h1>
+<div class="meta">1404/11/28 · <span class="fa">5 دقیقه مطالعه</span><span class="en">5 min read</span></div>
+<div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+<h2 class="fa">ایده</h2><h2 class="en">The idea</h2><p class="fa">می‌خواستم فرمی بسازم که حس یک داشبورد خودرو لوکس را بدهد: پس‌زمینهٔ تیره، کارت شیشه‌ای، خط طلایی و انیمیشن‌های نرم. همه‌چیز فقط با HTML و CSS است.</p><p class="en">I wanted a form that feels like a luxury car dashboard: dark background, a glass card, a gold accent line and smooth animations. It is pure HTML and CSS.</p>
+<h2 class="fa">ساختار HTML</h2><h2 class="en">The HTML</h2><p class="fa">ساختار ساده است: یک کارت، دو فیلد با برچسب شناور و یک دکمه.</p><p class="en">The structure is simple: one card, two fields with floating labels and a button.</p><pre><code class="language-html" data-file="login.html">&lt;form class="card">
+  &lt;h2>Sign in&lt;/h2>
+  &lt;div class="field">
+    &lt;input id="u" type="text" placeholder=" " required>
+    &lt;label for="u">Username&lt;/label>
+  &lt;/div>
+  &lt;div class="field">
+    &lt;input id="p" type="password" placeholder=" " required>
+    &lt;label for="p">Password&lt;/label>
+  &lt;/div>
+  &lt;button type="submit">Drive in&lt;/button>
+&lt;/form></code></pre>
+<h2 class="fa">استایل BMW</h2><h2 class="en">The BMW look</h2><p class="fa">رنگ‌های مشکی، سفید و طلایی را با متغیرهای CSS تعریف می‌کنیم. برچسب شناور با انتخابگر <code>:placeholder-shown</code> کار می‌کند، بدون هیچ JavaScript.</p><p class="en">Black, white and gold are defined as CSS variables. The floating label works with the <code>:placeholder-shown</code> selector, with no JavaScript at all.</p><pre><code class="language-css" data-file="login.css">:root { --gold: #c9a24b; --ink: #0a0a0c; }
+body { display: grid; place-items: center; min-height: 100vh; background: radial-gradient(circle at 30% 20%, #1c1c22, var(--ink)); }
+.card { width: min(360px, 92vw); padding: 36px 30px; border-radius: 18px;
+  background: rgba(255,255,255,.05); backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,.1); border-top: 2px solid var(--gold);
+  animation: rise .7s ease both; }
+.field { position: relative; margin: 22px 0; }
+.field input { width: 100%; padding: 14px 4px 6px; color: #fff; background: none;
+  border: 0; border-bottom: 1px solid #555; outline: none; transition: border-color .3s; }
+.field input:focus { border-color: var(--gold); }
+.field label { position: absolute; left: 4px; top: 14px; color: #888; pointer-events: none; transition: .25s; }
+.field input:focus + label,
+.field input:not(:placeholder-shown) + label { top: -6px; font-size: 12px; color: var(--gold); }
+button { width: 100%; padding: 12px; border: 0; border-radius: 10px; cursor: pointer;
+  font-weight: 700; background: var(--gold); color: #111; transition: transform .2s, box-shadow .2s; }
+button:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,162,75,.35); }
+@keyframes rise { from { opacity: 0; transform: translateY(24px); } }</code></pre>
+<h2 class="fa">جمع‌بندی</h2><h2 class="en">Takeaways</h2><p class="fa">با همین چند خط، یک فرم حرفه‌ای دارید. قدم بعدی اعتبارسنجی فرم و اتصال به بک‌اند است.</p><p class="en">With just these lines you get a polished form. The next step is validation and a backend connection.</p>
+
+</article>
+<div class="nav"><a href="calculator-js.html">&larr; <span class="fa">قبلی</span><span class="en">Prev</span></a><a href="calculator-js.html"><span class="fa">بعدی</span><span class="en">Next</span> &rarr;</a></div>
+<section id="comments"><h2><span class="fa">نظرات</span><span class="en">Comments</span></h2><div id="giscus"></div></section>
+</main><script src="blog.js"></script></body></html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>شروع هوش مصنوعی با Python: از کجا شروع کنیم؟</title><meta name="description" content="اولین مدل یادگیری ماشین با Python و Scikit-learn">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blog.css"></head>
+<body data-title-fa="شروع هوش مصنوعی با Python: از کجا شروع کنیم؟ | Mahdi.dev" data-title-en="Getting started with AI in Python: where to begin? | Mahdi.dev"><div id="bar"></div>
+<header><a href="../index_3d.html#blog">&larr; <span class="fa">وبلاگ</span><span class="en">Blog</span></a>
+<div><button id="themeBtn" type="button">☀️</button><button id="langBtn" type="button">EN</button></div></header>
+<main><article>
+<h1 class="fa">شروع هوش مصنوعی با Python: از کجا شروع کنیم؟</h1><h1 class="en">Getting started with AI in Python: where to begin?</h1>
+<div class="meta">1404/11/16 · <span class="fa">6 دقیقه مطالعه</span><span class="en">6 min read</span></div>
+<div class="tags"><span>Python</span><span>Scikit-learn</span><span>Pandas</span></div>
+<h2 class="fa">از کجا شروع کنیم؟</h2><h2 class="en">Where to begin</h2><p class="fa">قبل از شبکه‌های عصبی و TensorFlow، بهتر است با یادگیری ماشین کلاسیک شروع کنید. هدف اولین پروژه ساده است: یک دیتاست کوچک، یک مدل و اندازه‌گیری دقت.</p><p class="en">Before neural networks and TensorFlow, start with classic machine learning. The goal of a first project is simple: a small dataset, one model and an accuracy measurement.</p>
+<h2 class="fa">نصب</h2><h2 class="en">Install</h2><p class="fa">یک محیط مجازی بسازید و کتابخانه‌ها را نصب کنید.</p><p class="en">Create a virtual environment and install the libraries.</p><pre><code class="language-bash" data-file="terminal">python -m venv venv
+source venv/bin/activate   # Windows: venv\Scripts\activate
+pip install pandas scikit-learn</code></pre>
+<h2 class="fa">اولین مدل</h2><h2 class="en">Your first model</h2><p class="fa">دیتاست معروف Iris سه گونه گل را از روی اندازهٔ گلبرگ‌ها تشخیص می‌دهد. داده را به دو بخش آموزش و آزمون تقسیم می‌کنیم، مدل را آموزش می‌دهیم و روی داده‌ای که ندیده امتحانش می‌کنیم.</p><p class="en">The famous Iris dataset tells three flower species apart by petal size. We split the data into training and test sets, train a model, and test it on data it has never seen.</p><pre><code class="language-python" data-file="first_model.py">import pandas as pd
+from sklearn.datasets import load_iris
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
+
+# 1. Load data
+iris = load_iris(as_frame=True)
+X, y = iris.data, iris.target
+
+# 2. Split: 80% train, 20% test
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# 3. Train
+model = RandomForestClassifier(n_estimators=100, random_state=42)
+model.fit(X_train, y_train)
+
+# 4. Evaluate
+pred = model.predict(X_test)
+print(f"Accuracy: {accuracy_score(y_test, pred):.2%}")
+
+# 5. Predict a new flower
+sample = pd.DataFrame([[5.1, 3.5, 1.4, 0.2]], columns=X.columns)
+print("Species:", iris.target_names[model.predict(sample)[0]])</code></pre>
+<h2 class="fa">قدم بعدی</h2><h2 class="en">Next steps</h2><p class="fa">با دیتاست خودتان تمرین کنید، مدل‌ها را مقایسه کنید و بعد سراغ TensorFlow بروید.</p><p class="en">Practice with your own dataset, compare models, then move on to TensorFlow.</p>
+
+</article>
+<div class="nav"><a href="calculator-js.html">&larr; <span class="fa">قبلی</span><span class="en">Prev</span></a><a href="login-bmw.html"><span class="fa">بعدی</span><span class="en">Next</span> &rarr;</a></div>
+<section id="comments"><h2><span class="fa">نظرات</span><span class="en">Comments</span></h2><div id="giscus"></div></section>
+</main><script src="blog.js"></script></body></html>
